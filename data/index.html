@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Science Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        line-height: 1.6;
+        background: #f8f9fa;
+        color: #2c3e50;
+      }
+
+      .header {
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 1rem 0;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2c3e50;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #666;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #0066cc;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+      }
+
+      .social-icon:hover {
+        transform: translateY(-2px);
+      }
+
+      .github {
+        background: #333;
+      }
+      .linkedin {
+        background: #0077b5;
+      }
+      .twitter {
+        background: #1da1f2;
+      }
+      .instagram {
+        background: linear-gradient(
+          45deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888
+        );
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 120px 2rem 2rem;
+      }
+
+      .hero-section {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 4rem;
+        align-items: center;
+        min-height: 70vh;
+        margin-bottom: 5rem;
+      }
+
+      .profile-image {
+        width: 300px;
+        height: 300px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .profile-image:hover {
+        transform: translateY(-10px);
+      }
+
+      .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 20px;
+      }
+
+      .profile-placeholder {
+        font-size: 120px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .hero-content .subtitle {
+        font-size: 1.3rem;
+        color: #666;
+        margin-bottom: 2rem;
+        font-weight: 400;
+      }
+
+      .description {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: #0066cc;
+        color: white;
+        border: 2px solid #0066cc;
+      }
+
+      .btn-primary:hover {
+        background: #0052a3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #0066cc;
+        border: 2px solid #0066cc;
+      }
+
+      .btn-secondary:hover {
+        background: #0066cc;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .section {
+        margin-bottom: 5rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .skill-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        border-color: #0066cc;
+      }
+
+      .skill-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .skill-card h3 {
+        font-size: 1.4rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .skill-card p {
+        color: #666;
+        line-height: 1.6;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .project-image {
+        height: 200px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-description {
+        color: #666;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tech-tag {
+        background: #f8f9fa;
+        color: #0066cc;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border: 1px solid #e9ecef;
+      }
+
+      .experience-timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      .experience-timeline::before {
+        content: "";
+        position: absolute;
+        left: 1rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #0066cc;
+      }
+
+      .experience-item {
+        position: relative;
+        background: white;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        margin-left: 1rem;
+        border: 1px solid #f0f0f0;
+      }
+
+      .experience-item::before {
+        content: "";
+        position: absolute;
+        left: -1.75rem;
+        top: 1.5rem;
+        width: 12px;
+        height: 12px;
+        background: #0066cc;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 0 3px #0066cc;
+      }
+
+      .experience-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-company {
+        color: #0066cc;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-period {
+        color: #999;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .experience-description {
+        color: #666;
+        line-height: 1.6;
+      }
+
+      .contact-section {
+        background: #2c3e50;
+        color: white;
+        padding: 4rem 2rem;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 5rem;
+      }
+
+      .contact-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-section p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      @media (max-width: 768px) {
+        .hero-section {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 2rem;
+        }
+
+        .profile-image {
+          width: 200px;
+          height: 200px;
+          margin: 0 auto;
+        }
+
+        .profile-placeholder {
+          font-size: 80px;
+        }
+
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .container {
+          padding: 100px 1rem 1rem;
+        }
+
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="nav-container">
+        <div class="logo">Anurag Chopade</div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="social-links">
+          <a href="https://github.com/Anuragmmit" class="social-icon github">🐙</a>
+          <a href="https://www.linkedin.com/in/anurag-chopade-07438722a/" class="social-icon linkedin">💼</a>
+          <!-- <a href="#" class="social-icon twitter">🐦</a> -->
+          <a href="https://www.instagram.com/_anurag.eth?igsh=OWVpZmE5OW1jODAw" class="social-icon instagram">📷</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <section class="hero-section" id="home">
+        <div class="profile-image">
+          <!-- Replace 'your-image-url-here.jpg' with your actual image URL -->
+          <img
+            src="https://drive.google.com/file/d/199TCvvK8a95IYCA2xrJgqpDNt-rVSUbD/view?usp=sharing"
+            alt="Anurag Chopade - Data Scientist"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          />
+          <div class="profile-placeholder" style="display: none">AC</div>
+        </div>
+        <div class="hero-content">
+          <h1>Transforming Data Into Tomorrow's Innovation</h1>
+          <p class="subtitle">Data Science & Machine Learning</p>
+          <p class="description">
+            Hello! I'm a passionate about Data Science with expertise in Python,
+            SQL, and cutting-edge machine learning technologies. I specialize in
+            transforming complex datasets into actionable insights that drive
+            innovation and business growth. With a strong foundation in
+            statistical analysis and AI, I create intelligent solutions that
+            solve real-world problems.
+          </p>
+          <div class="cta-buttons">
+            <a
+              href="https://drive.google.com/file/d/1s1clUvIvjNCe0_mLjLE7AKbhFbjaebg8/view?usp=sharing"
+              class="btn btn-primary"
+              >📄 Resume</a
+            >
+            <a href="#contact" class="btn btn-secondary">📧 Contact</a>
+          </div>
+          <p style="color: #999; font-size: 0.9rem">
+            Explore my portfolio to see how I combine research with design to
+            create solutions that make a difference. Whether you're a fellow
+            innovator or a curious mind, let's connect and bring new ideas to
+            life!
+          </p>
+        </div>
+      </section>
+
+      <section class="section fade-in" id="about">
+        <h2 class="section-title">Core Expertise</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <span class="skill-icon">🐍</span>
+            <h3>Python Development</h3>
+            <p>
+              Advanced proficiency in Python for data analysis, machine
+              learning, and automation. Expert in NumPy, Pandas, Scikit-learn,
+              TensorFlow, PyTorch, and data visualization libraries.
+            </p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-icon">🗄️</span>
+            <h3>SQL & Databases</h3>
+            <p>
+              Expert in database design, complex queries, data warehousing, and
+              performance optimization. Experienced with PostgreSQL, MySQL, and
+              cloud databases like BigQuery.
+            </p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-icon">📊</span>
+            <h3>Data Science</h3>
+            <p>
+              Statistical analysis, hypothesis testing and experimental design.
+              Proficient in data visualization with Matplotlib, Seaborn, Plotly,
+              and business intelligence tools.
+            </p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-icon">🤖</span>
+            <h3>Machine Learning</h3>
+            <p>
+              Deep learning, neural networks, NLP, computer vision. Experience
+              with model deployment, monitoring, and scaling ML systems in
+              production environments.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section fade-in" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-image">🧠</div>
+            <div class="project-content">
+              <h3 class="project-title">GitHub Building</h3>
+              <p class="project-description">
+                In this project I learn how Git Works and Stores data and object
+                internally.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">Github</span>
+                <span class="tech-tag">AWS</span>
+                <!-- <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">Docker</span> -->
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-image">📈</div>
+            <div class="project-content">
+              <h3 class="project-title">The Django Resume Project</h3>
+              <p class="project-description">
+                The Django Resume Project is a web application built using the
+                Django framework that allows users to create, customize, and
+                manage professional resumes online. It features an intuitive
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Bootstrap</span>
+                <span class="tech-tag">Django</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-image">🔍</div>
+            <div class="project-content">
+              <h3 class="project-title">Predict Price of Airlines Industry</h3>
+              <p class="project-description">
+                Machine learning models can analyze historical flight data,
+                considering factors like route, date, time, airline, and de
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Machine Learning</span>
+                <span class="tech-tag">TensorFlow</span>
+                <span class="tech-tag">Pandas</span>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="project-card">
+            <div class="project-image">🏥</div>
+            <div class="project-content">
+              <h3 class="project-title">Medical Image Classification</h3>
+              <p class="project-description">
+                Developed a deep learning model for medical image analysis,
+                achieving 96% accuracy in diagnostic predictions and reducing
+                analysis time by 70%.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">OpenCV</span>
+                <span class="tech-tag">FastAPI</span>
+                <span class="tech-tag">Azure</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </section>
+
+      <section class="section fade-in">
+        <h2 class="section-title">Professional Journey</h2>
+        <div class="experience-timeline">
+          <div class="experience-item">
+            <h3 class="experience-title">Python Development</h3>
+            <p class="experience-company">Analystt.ai(Internshala)</p>
+            <p class="experience-period">02/2024 - 04/2024|Pune,India</p>
+            <p class="experience-description">
+             Completed a Python Development internship at
+Analystt.ai
+where I gained practical experience in Django and data analysis libraries. I contributed to the development of a web application for customer relationship management. This internship enhanced myunderstanding of object-oriented programming, database management, and agile development methodologies."
+            </p>
+          <!-- </div>
+          <div class="experience-item">
+            <h3 class="experience-title">Machine Learning Engineer</h3>
+            <p class="experience-company">DataInnovate Inc.</p>
+            <p class="experience-period">2020 - 2022</p>
+            <p class="experience-description">
+              Built and deployed production ML models for fraud detection and
+              risk assessment. Optimized data pipelines and reduced model
+              inference time by 40% while maintaining 99.9% uptime.
+            </p>
+          </div>
+          <div class="experience-item">
+            <h3 class="experience-title">Data Analyst</h3>
+            <p class="experience-company">Analytics Pro</p>
+            <p class="experience-period">2018 - 2020</p>
+            <p class="experience-description">
+              Performed statistical analysis and created data visualizations for
+              business intelligence. Developed automated reporting systems that
+              saved 20+ hours per week of manual work.
+            </p>
+          </div> -->
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <h2>Let's Create Something Extraordinary</h2>
+        <p>
+          Ready to transform data into innovation? Let's connect and discuss how
+          we can collaborate on your next breakthrough project.
+        </p>
+        <div class="cta-buttons">
+          <a href="https://www.linkedin.com/in/anurag-chopade-07438722a/" class="btn btn-primary">💼 LinkedIn Profile</a>
+          <a href="mailto:anurag.career67@gmail.com" class="btn btn-secondary">📧 Send Mail</a>
+          <!-- <a href="mailto:anurag.career67@gmail.com">Send Email</a> -->
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Intersection Observer for fade-in animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Active navigation highlighting
+      window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 100;
+          if (scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+          }
+        });
+      });
+
+      // Typing animation for hero title
+      const heroTitle = document.querySelector(".hero-content h1");
+      const titleText = heroTitle.textContent;
+      heroTitle.textContent = "";
+
+      let i = 0;
+      function typeWriter() {
+        if (i < titleText.length) {
+          heroTitle.textContent += titleText.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      }
+
+      setTimeout(typeWriter, 500);
+    </script>
+  </body>
+</html>
